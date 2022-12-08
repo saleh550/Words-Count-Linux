@@ -1,0 +1,140 @@
+Assignment 1 Responses
+Operating Systems
+Semester 1 5782
+
+Submitting Students:
+<yahia badarneh> <206986564>
+<saleh fares> <313440877>
+
+Date: <24/11/2021>
+--------------------------------------------------------------------------
+Section 3
+
+(words) 1.  What read buffer size(s) does words use for reading? How do you know?
+            
+            the buffer size is : 4096
+            by the strace output
+
+
+(words) 2. Use man to write down the roles of the following Linux syscalls which tee uses:
+
+	execve -   execve()  executes  the  program  referred  to  by  pathname.  This causes the program that is currently being run by the calling
+               process to be replaced with a new program, with newly initialized stack, heap, and (initialized and uninitialized) data segments.
+
+	brk -      brk() and sbrk() change the location of the program break, which defines the end of the process's data segment (i.e., the program
+               break is the first location after the end of the uninitialized data segment).
+	
+	openat -   The  open()  system  call opens the file specified by pathname.  If the specified file does not
+               exist, it may optionally (if O_CREAT is specified in flags) be created by open().
+
+	mmap -     mmap()  creates  a  new mapping in the virtual address space of the calling process.  The starting address for the new mapping is
+               specified in addr.  The length argument specifies the length of the mapping (which must be greater than 0).
+
+	fstat and stat -      These  functions  return  information about a file, in the buffer pointed to by statbuf.No permissions are required on the file
+                          itself, but in the case of stat(), fstatat(), and lstat() execute (search) permission is required on all of  the  directories  in
+                          pathname that lead to the file.
+
+	open (using man 2) -  The open() system call opens the file specified by pathname.  If the specified file does not exist, it may optionally (if O_CREAT
+                          is specified in flags) be created by open().
+	
+	exit_group -          This  system call is equivalent to _exit(2) except that it terminates not only the calling thread, but all threads in the calling
+                          process's thread group.
+
+
+--------------------------------------------------------------------------
+Section 4
+
+(gdb) 1. What is the value of argv? (Hint: print argv)
+
+         0x7fffffffdf88
+
+(gdb) 2. What is pointed to by argv? (Hint: print argv[0])
+
+         0x7fffffffe2b6
+
+(gdb) 3. What is the address of the function main?
+
+         the address of the main is 0x55555555553d
+
+(gdb) 4. Try info stack. Explain what you see.
+       
+         the address of the the main
+
+(gdb) 5. Try info frame. Explain what you see.
+
+         information about the stack frame
+
+(gdb) 6. Try info registers. Which registers are holding aspects of the program that you recognize?
+         
+         rip : hold the address of the main 
+         rsi : hold the value of argv
+
+--------------------------------------------------------------------------
+Section 5
+
+(objdump) 1. What file format is used for this binary? And what architecture is it compiled for?
+    
+             file format elf64-x86-64, 
+             architecture: i386:x86-64 
+
+(objdump) 2. List the names of 10 segments and  sections you find.
+
+            1 .note.gnu.build-id 
+
+            2 .note.ABI-tag 
+
+            3 .gnu.hash     
+
+            4 .dynsym      
+
+            5 .dynstr       
+
+            6 .gnu.version  
+
+            7 .gnu.version_r 
+
+            8 .rela.dyn     
+
+            9 .rela.plt     
+
+            10 .init         
+
+(objdump) 3. What segment/section contains main (the function) and what is the address of main?
+
+             the section contains main is : .text
+             the address of main : 000000000000150f
+
+
+(objdump) 4. Do you see the stack segment anywhere? What about the heap? Explain.
+
+--------------------------------------------------------------------------
+Section 6
+
+(mp) 1. Use objdump with the -D flag on the map executable. Which of the addresses from the output of running ./map are defined in the executable, and which segment/section is each defined in?
+            
+        the section contains main is : .text
+        the address of main : 0000000000001231				
+
+(mp) 2. List 4 important sections or segments shown.  Write what each one is used for (look up their names on the Internet if you don’t know).
+
+        .init
+        .plt
+        .plt.got
+        .fini
+
+(mp) 3. What direction is the stack growing in?
+
+        from 0000000000001000 to 00000000000013d8
+
+(mp) 4. How large is the stack frame for each recursive call?
+   
+        48
+
+(mp) 5. Where is the heap? What direction is it growing in?
+
+        in the memory 
+        for up
+
+(mp) 6. Are the two malloc()ed memory areas contiguous? (i.e. is there any extra space between their addresses?)
+
+        we allocate 150 for *buf variables and each heap call is 8 
